@@ -49,3 +49,32 @@ def show_user_menu(user):
             break
         else:
             print("Invalid option. Please try again.")
+
+def main():
+    # Ensure database tables exist
+    init_db()
+    
+    while True:
+        choice = show_main_menu()
+        
+        if choice == '1':
+            print("\n--- Register User ---")
+            username = input("Username: ").strip()
+            password = input("Password: ").strip()
+            role = input("Role (student/admin) [default: student]: ").strip() or "student"
+            register_user(username, password, role)
+        elif choice == '2':
+            print("\n--- User Login ---")
+            username = input("Username: ").strip()
+            password = input("Password: ").strip()
+            user = login_user(username, password)
+            if user:
+                show_user_menu(user)
+        elif choice == '3':
+            print("Thank you for using the Library Management System. Goodbye!")
+            sys.exit()
+        else:
+            print("Invalid selection. Please choose 1, 2, or 3.")
+
+if __name__ == "__main__":
+    main()
